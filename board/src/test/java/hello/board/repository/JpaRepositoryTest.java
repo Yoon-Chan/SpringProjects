@@ -5,14 +5,22 @@ import hello.board.domain.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("testdb")
 @DisplayName("JPA 연결 테스트")
+//테스트DB를 불러오지 않고 설정에 있는 테스트정보를 사용한다.
+//@DataJpaTest를 하면 강제로 정해진 테스트 db를 적용한다. 이를 강제하기 싫을 경우 사용
+//이 애너테이션을 쓰지 않고 applicatioon.yaml에 아래 속성 추가해도 된다.
+//test.database.replace: none
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(JpaConfig.class)
 @DataJpaTest
 class JpaRepositoryTest {
