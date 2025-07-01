@@ -23,9 +23,9 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 })
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article  extends AuditingFields {
 
     //hibernate는 기본 생성자가 있어야 한다.
     protected Article() {
@@ -76,20 +76,4 @@ public class Article {
     @ToString.Exclude
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
-
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt; //생성일시
-
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy; //생성자
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt; // 수정일시
-
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy; //수정자
 }
