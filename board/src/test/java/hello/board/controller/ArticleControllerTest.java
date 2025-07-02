@@ -22,7 +22,7 @@ class ArticleControllerTest {
     }
 
     //Disabled를 사용하면 build 시 Test도 확인을 하는 데 이 오류를 해결할 수 있음.
-    @Disabled("구현 중")
+//    @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 리스트 (게시판) 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticlesView_thenReturnsArticlesView() throws Exception {
@@ -33,7 +33,7 @@ class ArticleControllerTest {
                 //정상 호출이 되었는지
                 .andExpect(status().isOk())
                 //contentType이 Text형식인지
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/index"))
                 //모델이 주입되어있는지 확인
                 .andExpect(model().attributeExists("articles"));
