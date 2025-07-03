@@ -1,35 +1,31 @@
-package hello.board.response;
+package hello.board.dto.response;
 
-import hello.board.dto.ArticleDto;
+import hello.board.dto.ArticleCommentDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public record ArticleResponse(
+public record ArticleCommentResponse(
         Long id,
-        String title,
         String content,
-        String hashtag,
         LocalDateTime createdAt,
         String email,
         String nickname
 ) implements Serializable {
 
-    public static ArticleResponse of(Long id, String title, String content, String hashtag, LocalDateTime createdAt, String email, String nickname) {
-        return new ArticleResponse(id, title, content, hashtag, createdAt, email, nickname);
+    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname) {
+        return new ArticleCommentResponse(id, content, createdAt, email, nickname);
     }
 
-    public static ArticleResponse from(ArticleDto dto) {
+    public static ArticleCommentResponse from(ArticleCommentDto dto) {
         String nickname = dto.userAccountDto().nickname();
         if (nickname == null || nickname.isBlank()) {
             nickname = dto.userAccountDto().userId();
         }
 
-        return new ArticleResponse(
+        return new ArticleCommentResponse(
                 dto.id(),
-                dto.title(),
                 dto.content(),
-                dto.hashtag(),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
                 nickname
