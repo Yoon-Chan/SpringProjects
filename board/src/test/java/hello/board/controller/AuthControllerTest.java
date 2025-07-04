@@ -1,6 +1,7 @@
 package hello.board.controller;
 
 import hello.board.config.SecurityConfig;
+import hello.board.config.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +14,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 - 인증")
-@Import(SecurityConfig.class)
-@WebMvcTest
+@Import(TestSecurityConfig.class)
+@WebMvcTest(AuthControllerTest.class)
 public class AuthControllerTest {
 
-    private final MockMvc mvc;
-
-    //테스트케이스에 있는 것은 직접 Autowired를 지정해야 함.
-    public AuthControllerTest(@Autowired MockMvc mvc) {
-        this.mvc = mvc;
-    }
+    @Autowired
+    private MockMvc mvc;
 
     @DisplayName("[view][GET] 로그인 페이지 - 정상 호출")
     @Test

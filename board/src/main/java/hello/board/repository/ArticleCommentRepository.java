@@ -20,7 +20,8 @@ public interface ArticleCommentRepository extends
         QuerydslBinderCustomizer<QArticleComment> {
 
     List<ArticleComment> findByArticle_Id(Long articleId);
-
+    //사용자 id도 같이 확이해서 삭제를 진행
+    void deleteByIdAndUserAccount_UserId(Long articleCommentId, String userId);
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root) {
         //현재 QuerydslPredicateExecutor을 통해서 모든 검색을 하게 되는데,

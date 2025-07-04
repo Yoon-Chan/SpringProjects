@@ -2,7 +2,6 @@ package hello.board.dto.response;
 
 import hello.board.dto.ArticleCommentDto;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public record ArticleCommentResponse(
@@ -10,11 +9,13 @@ public record ArticleCommentResponse(
         String content,
         LocalDateTime createdAt,
         String email,
-        String nickname
-) implements Serializable {
+        String nickname,
+        //userId를 확인해야하기 때문에 추가
+        String userId
+) {
 
-    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname) {
-        return new ArticleCommentResponse(id, content, createdAt, email, nickname);
+    public static ArticleCommentResponse of(Long id, String content, LocalDateTime createdAt, String email, String nickname, String userId) {
+        return new ArticleCommentResponse(id, content, createdAt, email, nickname, userId);
     }
 
     public static ArticleCommentResponse from(ArticleCommentDto dto) {
@@ -22,13 +23,13 @@ public record ArticleCommentResponse(
         if (nickname == null || nickname.isBlank()) {
             nickname = dto.userAccountDto().userId();
         }
-
         return new ArticleCommentResponse(
                 dto.id(),
                 dto.content(),
                 dto.createdAt(),
                 dto.userAccountDto().email(),
-                nickname
+                nickname,
+                dto.userAccountDto().userId()
         );
     }
 
