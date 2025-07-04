@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<thlogic xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<thlogic>
     <attr sel="#header" th:replace="header :: header" />
     <attr sel="#footer" th:replace="footer :: footer" />
     <attr sel="main" th:object="${articles}">

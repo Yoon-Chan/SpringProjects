@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<thlogic xmlns:th="http://www.thymeleaf.org">
+<thlogic>
     <attr sel="#header" th:replace="header :: header" />
     <attr sel="#footer" th:replace="footer :: footer" />
     <attr sel="#article-main" th:object="${article}">
@@ -10,8 +10,7 @@
         <attr sel="#hashtag" th:text="*{hashtag}" />
         <attr sel="#article-content/pre" th:text="*{content}" />
 
-        <!--인증이 되어있는지 확인-->
-        <attr sel="#article-buttons" th:if="${#authorization.expression('isAuthenticated()')} and *{userId} == ${#authentication.name}">
+        <attr sel="#article-buttons" th:if="(${#authorization.expression('isAuthenticated()')}) and (*{userId} == ${#authentication.name})">
             <attr sel="#delete-article-form" th:action="'/articles/' + *{id} + '/delete'" th:method="post">
                 <attr sel="#update-article" th:href="'/articles/' + *{id} + '/form'" />
             </attr>
