@@ -16,35 +16,23 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
-  application:
-    name: board
   datasource:
-    url: jdbc:mysql://localhost:3306/board
+    url: jdbc:postgresql://localhost:5432/board
     username: chan
-    password: thisisTestpw!@#$
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: thisisTESTpw!#%&
   jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: create
     open-in-view: false
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: create-drop
     show-sql: true
     properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-      hibernate.hibernate.format_sql: true
-      hibernate.hibernate.default_batch_fetch_size: 100
-  h2:
-    console:
-      enabled: false
-  sql:
-    init:
-      mode: always
+      hibernate.format_sql: true
+      hibernate.default_batch_fetch_size: 100
+  sql.init.mode: always
   data.rest:
     base-path: /api
     detection-strategy: annotated
-  thymeleaf3:
-    decoupled-logic: true
+  thymeleaf3.decoupled-logic: true
 ---
 spring:
   config:

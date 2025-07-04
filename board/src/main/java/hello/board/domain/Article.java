@@ -14,7 +14,6 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
-        @Index(columnList = "hashtag"),
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 })
