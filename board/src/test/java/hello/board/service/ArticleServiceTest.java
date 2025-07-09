@@ -43,7 +43,7 @@ class ArticleServiceTest {
     @InjectMocks
     private ArticleService sut;
 
-    @InjectMocks
+    @Mock
     private HashtagService hashtagService;
 
     @Mock
@@ -53,6 +53,7 @@ class ArticleServiceTest {
 
     @Mock
     private HashtagRepository hashtagRepository;
+
 
     @DisplayName("검색어 없이 게시글을 검색하면, 게시글 페이지를 반환한다.")
     @Test
@@ -66,6 +67,7 @@ class ArticleServiceTest {
         assertThat(articles).isEmpty();
         then(articleRepository).should().findAll(pageable);
     }
+
     @DisplayName("검색어와 함께 게시글을 검색하면, 게시글 페이지를 반환한다.")
     @Test
     void givenSearchParameters_whenSearchingArticles_thenReturnsArticlePage() {
@@ -80,6 +82,7 @@ class ArticleServiceTest {
         assertThat(articles).isEmpty();
         then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
+
     @DisplayName("검색어 없이 게시글을 해시태그 검색하면, 빈 페이지를 반환한다.")
     @Test
     void givenNoSearchParameters_whenSearchingArticlesViaHashtag_thenReturnsEmptyPage() {
@@ -161,6 +164,7 @@ class ArticleServiceTest {
                 .hasMessage("게시글이 없습니다 - articleId: " + articleId);
         then(articleRepository).should().findById(articleId);
     }
+
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
     @Test
     void givenArticleId_whenSearchingArticle_thenReturnsArticle() {
@@ -324,6 +328,7 @@ class ArticleServiceTest {
         assertThat(actual).isEqualTo(expected);
         then(articleRepository).should().count();
     }
+
     @DisplayName("해시태그를 조회하면, 유니크 해시태그 리스트를 반환한다")
     @Test
     void givenNothing_whenCalling_thenReturnsHashtags() {
@@ -404,6 +409,7 @@ class ArticleServiceTest {
                 LocalDateTime.now(),
                 "Uno");
     }
+
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 "uno",
