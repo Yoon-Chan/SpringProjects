@@ -1,0 +1,21 @@
+spring.application.name: sns
+
+spring.jpa:
+  database: postgresql
+  hibernate.ddl-auto: update
+  properties.hibernate.format_sql: true
+  show-sql: true
+
+spring.datasource:
+  hikari:
+    maximum-pool-size: 4
+  url: jdbc:postgresql://localhost:5432/postgres
+  username: chan
+  password: thisisTESTpw!#%&
+  driver-class-name: org.postgresql.Driver
+
+jwt:
+  secret-key: fast-campus.sns-application-2025.secret_key
+  #30 days
+  token:
+    expired-time-ms: 2592000000
