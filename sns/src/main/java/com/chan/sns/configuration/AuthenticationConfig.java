@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,7 +31,7 @@ public class AuthenticationConfig {
                         auth -> auth
                                 .requestMatchers("/api/*/users/join", "/api/*/users/login").permitAll()
                                 .requestMatchers("/api/**").authenticated()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -44,5 +45,12 @@ public class AuthenticationConfig {
 //                .formLogin(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer configuration() {
+        return webSecurity -> {
+            webSecurity.ignoring().requestMatchers("^(?!/api/).*)");
+        };
     }
 }
