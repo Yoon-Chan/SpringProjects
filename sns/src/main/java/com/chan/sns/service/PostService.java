@@ -2,16 +2,12 @@ package com.chan.sns.service;
 
 import com.chan.sns.exception.ErrorCode;
 import com.chan.sns.exception.SnsApplicationException;
+import com.chan.sns.model.AlarmArgs;
+import com.chan.sns.model.AlarmType;
 import com.chan.sns.model.Comment;
 import com.chan.sns.model.Post;
-import com.chan.sns.model.entity.CommentEntity;
-import com.chan.sns.model.entity.LikeEntity;
-import com.chan.sns.model.entity.PostEntity;
-import com.chan.sns.model.entity.UserEntity;
-import com.chan.sns.repository.CommentEntityRepository;
-import com.chan.sns.repository.LikeEntityRepository;
-import com.chan.sns.repository.PostEntityRepository;
-import com.chan.sns.repository.UserEntityRepository;
+import com.chan.sns.model.entity.*;
+import com.chan.sns.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +21,7 @@ public class PostService {
     private final PostEntityRepository postEntityRepository;
     private final UserEntityRepository userEntityRepository;
     private final LikeEntityRepository likeEntityRepository;
+    private final AlarmEntityRepository alarmEntityRepository;
     private final CommentEntityRepository commentEntityRepository;
 
     @Transactional
@@ -141,6 +138,7 @@ public class PostService {
 
         //comment save
         commentEntityRepository.save(CommentEntity.of(userEntity, postEntity, comment));
+        alarmEntityRepository.save(AlarmEntity.of(postEntity.getUser(), AlarmType.NEW_COMMENT_ON_POST, new AlarmArgs(userEntity.getId(), postEntity.getId())));
     }
 
     public Page<Comment> getComments(Integer postId, Pageable pageable) {
